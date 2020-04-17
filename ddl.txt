@@ -1,0 +1,76 @@
+CREATE TABLE Renter(
+	RenterID int NOT NULL,
+	FirstName varchar(25) NOT NULL,
+	LastName varchar(30) NOT NULL,
+	MiddleName varchar(30) NULL,
+	HouseNumber varchar(10) NULL,
+	Street Varchar(20) NOT NULL,
+	CityCounty Varchar(30) NOT NULL,
+	HomeState Char(2) NULL,
+	Country Char(2) NOT NULL,
+	Zip Char(9) NOT NULL,
+	LastUpdatedBy varchar(50) NOT NULL,
+	LastUpdated date NOT NULL,
+	CONSTRAINT PK_Renter PRIMARY KEY (RenterID));
+
+CREATE TABLE Property (
+	PropertyID int IDENTITY (1,1) NOT NULL,
+	HouseNumber varchar(10) NULL,
+	Street Varchar(20) NOT NULL,
+	CityCounty Varchar(30) NOT NULL,
+	HomeState Char(2) NULL,
+	Country Char(2) NOT NULL,
+	Zip Char(9) NOT NULL,
+	MonthlyPrice money Not Null,
+	EffectiveDate date NOT NULL,
+	TErminationDate date NOT NULL,
+	LastUpdatedBy varchar(50) NOT NULL,
+	LastUpdated date NOT NULL,
+	RenterID int Not Null,
+	CONSTRAINT PK_Property PRIMARY KEY (PropertyID),
+	CONSTRAINT FK_PropertyRenter FOREIGN KEY (RenterID) references Renter);
+
+CREATE TABLE Student(
+	StudentID int IDENTITY(1,1) NOT NULL,
+	FirstName varchar(25) NOT NULL,
+	LastName varchar(30) NOT NULL,
+	MiddleName varchar(30) NULL,
+	HouseNumber varchar(10) NULL,
+	Street Varchar(20) NOT NULL,
+	CityCounty Varchar(30) NOT NULL,
+	HomeState Char(2) NULL,
+	Country Char(2) NOT NULL,
+	Zip Char(9) NOT NULL,
+	DateOfBirth date NOT NULL,
+	LastUpdatedBy varchar(50) NOT NULL,
+	LastUpdated date NOT NULL,
+	PropertyID int,
+	CONSTRAINT PK_Student PRIMARY KEY (StudentID),
+	CONSTRAINT FK_StudentProperty FOREIGN KEY (PropertyID) references Property);
+
+CREATE TABLE PropertyRoom(
+	PropertyID int NOT NULL,
+	Room Varchar(50) NOT NULL,
+	LastUpdatedBy varchar(50) NOT NULL,
+	LastUpdated date NOT NULL,
+	CONSTRAINT PK_PropertyRoom PRIMARY KEY (PropertyID, Room),
+	CONSTRAINT FK_PropertyRoomProperty FOREIGN KEY (PropertyID) references
+	Property);
+
+CREATE TABLE Payment(
+	StudentID int NOT NULL,
+	PropertyID int NOT NULL,
+	RenterID int NOT NULL,
+	PaymentDate date NOT NULL,
+	PaymentAmount money Not Null,
+	LastUpdatedBy varchar(50) NOT NULL,
+	LastUpdated date NOT NULL,
+	CONSTRAINT PK_Payment PRIMARY KEY
+	(StudentID,PropertyID,RenterID,PaymentDate),
+	CONSTRAINT FK_PaymentStudent FOREIGN KEY (StudentID) references Student,
+	CONSTRAINT FK_PaymentProperty FOREIGN KEY (PropertyID) references Property,
+	CONSTRAINT FK_PaymentRenter FOREIGN KEY (RenterID) references Renter);
+
+INSERT INTO [Lab3].[dbo].[RENTER] VALUES (1, 'test', 'test', 'test', '1111', 'Test Dr', 'Harrisonburg', 'VA', 'US', '22801', 'Kris', '2010-12-09');
+INSERT INTO [Lab3].[dbo].[PROPERTY] VALUES ('504', 'Copper Beech', 'Harrisonburg', 'VA', 'US', '22801', 100, '2020-12-09', '2020-12-09', 'Kris Case', '2019-10-10', 1);
+INSERT INTO [Lab3].[dbo].[STUDENT] VALUES ('Kris', 'Case', 'B', '504', 'Copper Beech', 'Harrisonburg', 'VA', 'US', '22801', '1997-06-05', 'Kris Case', '2019-10-10', 1);
