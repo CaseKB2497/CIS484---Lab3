@@ -1,0 +1,92 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder id="title" runat="server">
+
+        </asp:ContentPlaceHolder>
+    </title>
+
+    <style type="text/css">
+        body 
+        {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color:lightgrey;
+        }
+
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .topnav a.active {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+    </style>
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="topnav" id="myDIV">
+            <ul class ="nav">
+                <a href="Home_UI_Page.aspx">Home</a>
+                <a href="Student_UI_Page.aspx">Student</a>
+                <a href="Property_UI_Page.aspx">Property</a>
+                <a href="Payment_UI_Page.aspx">Payment</a>
+            </ul>
+
+            <asp:ContentPlaceHolder id="navigationMenu" runat="server">
+            
+            </asp:ContentPlaceHolder>
+        </div>
+        
+        <div>
+            <asp:ContentPlaceHolder id="body" runat="server">
+                <p></p>
+            </asp:ContentPlaceHolder>
+        </div>
+        
+        <script>
+            // Get the container element
+            var btnContainer = document.getElementById("myDIV");
+
+            // Get all buttons with class="btn" inside the container
+            var btns = btnContainer.getElementsByClassName("btn");
+
+            // Loop through the buttons and add the active class to the current/clicked button
+            for (var i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+              });
+}
+        </script>
+
+        
+    </form>
+</body>
+
+</html>
