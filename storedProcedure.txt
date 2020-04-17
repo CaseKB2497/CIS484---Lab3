@@ -1,0 +1,14 @@
+CREATE Procedure KrisCaseLab3
+
+@stuID int,
+@propID int,
+@rentID int,
+@payDate date,
+@payAmount money,
+@lastUpBy varChar(50),
+@lastUp DateTime
+
+AS
+BEGIN
+INSERT INTO [dbo].[Payment] VALUES (@stuID, @propID, @rentID, @payDate, @payAmount, @lastUpBy, @lastUp)
+END
